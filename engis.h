@@ -17,6 +17,7 @@
 
 
 typedef struct {
+	Kata Nama;
 	int Life;
 	int Money;
 	int Time;
@@ -128,6 +129,7 @@ typedef struct {
 
 
 /*SELEKTOR PLAYER*/
+#define Nama(P) (P).Nama
 #define Life(P) (P).Life
 #define Time(P) (P).Time
 #define Money(P) (P).Money
