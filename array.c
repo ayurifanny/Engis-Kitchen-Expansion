@@ -13,6 +13,7 @@
 #include "array.h"
 #include "mesinkata.h"
 
+
 /*  Kamus Umum */
 #define IdxMax 100
 /* Indeks maksimum array, sekaligus ukuran maksimum array dalam C */

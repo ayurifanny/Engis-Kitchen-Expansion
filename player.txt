@@ -1,0 +1,6 @@
+Nama 
+Uang 0
+Time 0
+Posisi 5 5
+Ruang 1
+.
