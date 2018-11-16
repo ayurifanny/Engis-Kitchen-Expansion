@@ -200,7 +200,7 @@ F.S : status pada matriks sudan diisi*/
 		
 }
 
-void PrintDenah(MATRIKS *M)
+void PrintDenah(MATRIKS *M, Player *P)
 /* I.S : Matriks telah terbentuk, sudah load
 F.S : di print ke layar isi dari denah */
 {
@@ -214,29 +214,80 @@ F.S : di print ke layar isi dari denah */
 		j=1;
 		while (j<=8){
 			//printf("%d %d %d\n", i, j, MTable(*M,i,j));
+			if (PosisiX(*P) == i && PosisiY(*P) == j){
+				printf("P  ");
+			}
+
 			if (MTable(*M, i, j)) {
-				printf("%d ", MTableNum(*M, i,j));
+				printf("%d  ", MTableNum(*M, i,j));
 			}
 			else if (MChair(*M, i, j)) {
 				if (MChairVac(*M,i,j)) {
-					printf("X ");
+					printf("X  ");
 				}
 				else if (!MChairVac(*M,i,j))  {
-					printf("C ");
+					printf("C  ");
 				}
 			}
 			else if (MStove(*M, i, j)) {
-				printf("M ");
+				printf("M  ");
 			}
 			else if (MTray(*M, i,j)) {
-				printf("T ");
+				printf("T  ");
 			}
 			else{
-				printf("  ");
+				printf("   ");
 			}
 			j++;
 		}
 		printf("\n");
 		i++;
 	}
+}
+
+void PrintGame(MATRIKS *M, Player *P)
+/*I.S : Matriks valid, player valid*/
+/*F.S : Di layar tampil map sesuai keinginan*/
+{
+	//Kamus
+	int i;
+
+	//Print Nama
+	i = 1;
+	while (i<=NamaLength(*P)) {
+		printf("%c", Nama(*P, i));
+		i++;
+	}
+
+	printf("     ");
+
+	//print money
+	printf("Money : ");
+	printf("%d", Money(*P));
+	printf("     ");
+
+	//print life
+	printf("Life : ");
+	printf("%d", Life(*P));
+	printf("     ");
+
+	//printTime
+	printf("Time : ");
+	printf("%d\n", Time(*P));
+	printf("##########################################\n");
+
+	PrintDenah(M, P);
+
+	//printWaitingCust
+	printf("Waiting Cust :\n");
+
+	//printOrder
+	printf("Order : \n");
+
+	//printFootStack
+	printf("Foot Stack: \n");
+
+	//printHand
+	printf("Hand : \n");
+
 }

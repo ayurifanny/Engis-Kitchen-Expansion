@@ -129,11 +129,15 @@ typedef struct {
 
 
 /*SELEKTOR PLAYER*/
-#define Nama(P) (P).Nama
+#define Nama(P,i) (P).Nama.TabKata[i]
+#define NamaLength(P) (P).Nama.Length
+
 #define Life(P) (P).Life
 #define Time(P) (P).Time
 #define Money(P) (P).Money
-#define Posisi(P) (P).Posisi
+#define PosisiX(P) (P).Posisi.X
+#define PosisiY(P) (P).Posisi.Y
+
 #define Hand(P) (P).H
 #define TopH(P) (P).H.TOP
 #define InfoTopH(P) (P).H.T[(P).H.TOP]
