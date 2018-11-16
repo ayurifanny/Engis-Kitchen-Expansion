@@ -103,7 +103,7 @@ int NBElmtM (MATRIKS M)
 	return (GetLastIdxBrs(M) * GetLastIdxKol(M));
 }
 
-void Loadku(MATRIKS *M, int ruang)
+void Loadku(MATRIKS *M, int ruang, char pilihan)
 /*Membaca file external dan memasukkkan isinya ke matriks
 I.S : Sudah terbentuk matriks kosong ukuran 8x8, ruang antara 1-3
 F.S : status pada matriks sudan diisi*/
@@ -116,7 +116,12 @@ F.S : status pada matriks sudan diisi*/
 	i = 1;
 	j = 1;
 	
-	START();
+	if (pilihan == 'K') {
+		STARTK();
+	}
+	else if (pilihan == 'R') {
+		STARTR();
+	}
 	//huruf pertama sdh diakuisisi
 	while (CC != MARK) {
 		
@@ -129,10 +134,33 @@ F.S : status pada matriks sudan diisi*/
 			}
 			ADV();
 			ADV();
+			//load valid
+			if (CC == '1'){
+				MValid(*M, i, j) = 1;
+				ADV();
+				GetIdxObjX(*M, i, j) = (int) CC - '0';
+				ADV();
+				GetIdxObjY(*M, i, j) = (int) CC - '0';
+			} else {
+				MValid(*M, i, j) = 0;
+				GetIdxObjX(*M, i, j) = -1;
+				GetIdxObjY(*M, i, j) = -1;
+			}
+			ADV();
+			ADV();
 
 			//load door
-			if (CC == '1'){
-				MDoor(*M,i,j) = 1;
+			if (ruang == 1){
+				MDoor(*M,5,8) = 1;
+				MDoor(*M,8,5) = 1;
+			}
+			else if (ruang == 2){
+				MDoor(*M,2,1) = 1;
+				MDoor(*M,8,5) = 1;
+			}
+			else if (ruang == 3) {
+				MDoor(*M,1,5) = 1;
+				MDoor(*M,2,1) = 1;
 			}
 			else {
 				MDoor(*M,i,j) = 0;
@@ -285,13 +313,10 @@ F.S : di print ke layar isi dari denah */
 				printf("%d ", MTableNum(*M, i,j));
 			}
 			else if (MChair(*M, i, j)) {
-				if ((MTable(*M, i-1, j) || MTable(*M, i+1, j)) && MChairVac(*M,i,j)) {
-					printf(" X ");
-				}
-				else if (MChairVac(*M, i, j)) {
+				if (MChairVac(*M,i,j)) {
 					printf("X ");
 				}
-				else if ((MTable(*M, i-1, j) || MTable(*M, i+1, j)) && !MChairVac(*M,i,j)){
+				else if (!MChairVac(*M,i,j))  {
 					printf("C ");
 				}
 			}
@@ -302,7 +327,7 @@ F.S : di print ke layar isi dari denah */
 				printf("T ");
 			}
 			else{
-				printf(" ");
+				printf("  ");
 			}
 			j++;
 		}

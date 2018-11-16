@@ -8,7 +8,8 @@ int main() {
 
 	MakeMATRIKS(8,8, &M);
 
-	Loadku(&M, 3);
+	Loadku(&M, 3, 'R');
+	
 	PrintDenah(&M);
 	return 0;
 

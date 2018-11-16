@@ -45,6 +45,13 @@ typedef struct {
 	int No;
 } chair;
 
+typedef struct {
+	boolean IsValid;
+	int XObj;
+	int YObj; 
+	int No;
+} valid;
+
 /*Kalo M[x][y] itu adalah kompor, Kompor : boolean = true*/
 /*NamaBhn -> Bahan apa yg di ada di situ*/
 /*kalo Kompor false, NamaBhn isi 0*/
@@ -72,6 +79,7 @@ typedef struct {
 
 typedef struct {
 	boolean Avail; //bisa di lewati player apa ngga
+	valid Valid;
 	boolean Door;
 	table Table;
 	chair Chair;
@@ -93,6 +101,11 @@ typedef struct {
 #define MStove(M,i,j) (M).Mem[(i)][(j)].Stove.Kompor
 #define MTray(M,i,j) (M).Mem[(i)][(j)].Tray.Nampan
 #define MEdge(M,i,j) (M).Mem[(i)][(j)].Edge.E
+
+#define MValid(M,i,j) (M).Mem[(i)][(j)].Valid.IsValid
+#define GetIdxObjX(M,i,j) (M).Mem[(i)][(j)].Valid.XObj
+#define GetIdxObjY(M,i,j) (M).Mem[(i)][(j)].Valid.YObj
+
 
 #define MTableVac(M,i,j) (M).Mem[(i)][(j)].Table.VacantT
 #define MTableNum(M,i,j) (M).Mem[(i)][(j)].Table.Number
