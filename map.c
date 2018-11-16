@@ -78,7 +78,7 @@ F.S : status pada matriks sudan diisi*/
 			{
 				MTable(*M,i,j) = 1;
 				ADV();
-				if (CC = 'V')
+				if (CC == 'V')
 					MTableVac(*M,i,j) = 1;
 				ADV();
 				MTableNum(*M, i, j) = ((int)CC - '0')+4*(ruang-1);
@@ -112,13 +112,11 @@ F.S : status pada matriks sudan diisi*/
 				else {
 					MChairVac(*M,i,j) = 0;
 				}
-			ADV();
-			MChairNo(*M, i, j) = ((int) CC - '0') + 4*(ruang-1);
 			}
 			else if(CC == '0') {
 				MChair(*M,i,j) = 0;
 				MChairVac(*M,i,j) = 0;
-				MChairNo(*M, i, j) = -1;
+				//MChairNo(*M, i, j) = -1;
 			}
 			
 			ADV();
@@ -159,41 +157,11 @@ F.S : status pada matriks sudan diisi*/
 			ADV();
 			ADV();
 			
-			//load edges
-			if (CC == '1') {
-				MEdge(*M, i, j) = 1;
-				ADV();
-
-				//belom selesai
-				while (CC != '\n') {
-					if (CC == 'L'){
-						MEdgeL(*M,i,j) = 1;
-					}
-					else if (CC == 'R') {
-						MEdgeR(*M,i,j) = 1;	
-					}
-					else if (CC == 'U') {
-						MEdgeU(*M,i,j) = 1;	
-					}
-					else if (CC == 'D') {
-						MEdgeD(*M,i,j) = 1;	
-					}
-					ADV();
-				}
-			}
-			else {
-				MEdge(*M, i, j) = 0;
-				MEdgeL(*M, i, j) = 0;
-				MEdgeR(*M, i, j) = 0;
-				MEdgeU(*M, i, j) = 0;
-				MEdgeD(*M, i, j) = 0;
-				ADV();
-			}
-
-		ADV();
 		j++;
 		if (j>8) {
-			i++;
+			if (i<8){
+				i++;
+			}
 			j = 1;
 		}
 	}
@@ -212,14 +180,17 @@ F.S : di print ke layar isi dari denah */
 
 	while (i<=8) {
 		j=1;
+		printf("   # ");
 		while (j<=8){
-			//printf("%d %d %d\n", i, j, MTable(*M,i,j));
 			if (PosisiX(*P) == i && PosisiY(*P) == j){
 				printf("P  ");
-			}
+			} else if (MTable(*M, i, j)) {
+				if (MTableNum(*M, i, j)<10){
+					printf("%d  ", MTableNum(*M, i,j));
+				} else {
+					printf("%d ", MTableNum(*M, i,j));
 
-			if (MTable(*M, i, j)) {
-				printf("%d  ", MTableNum(*M, i,j));
+				}
 			}
 			else if (MChair(*M, i, j)) {
 				if (MChairVac(*M,i,j)) {
@@ -240,7 +211,7 @@ F.S : di print ke layar isi dari denah */
 			}
 			j++;
 		}
-		printf("\n");
+		printf(" #\n");
 		i++;
 	}
 }
@@ -274,10 +245,13 @@ void PrintGame(MATRIKS *M, Player *P)
 	//printTime
 	printf("Time : ");
 	printf("%d\n", Time(*P));
-	printf("##########################################\n");
+	printf("------------------------------------------------------\n");
+	printf("   ############################\n");
 
 	PrintDenah(M, P);
+	printf("   ############################\n");
 
+	printf("------------------------------------------------------\n");
 	//printWaitingCust
 	printf("Waiting Cust :\n");
 
@@ -285,7 +259,7 @@ void PrintGame(MATRIKS *M, Player *P)
 	printf("Order : \n");
 
 	//printFootStack
-	printf("Foot Stack: \n");
+	printf("Food Stack: \n");
 
 	//printHand
 	printf("Hand : \n");

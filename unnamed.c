@@ -14,14 +14,12 @@ int main(){
 	int menu, lengthNama;
 	Player Pemain;
 	MATRIKS R1, R2, R3, K;
-	/*MATRIKS Hu, Ha;*/
-	/* K*/
 	
 	/* ALGORITMA */
-	MakeMATRIKS(8,8,&R1);
-	MakeMATRIKS(8,8,&R2);
-	MakeMATRIKS(8,8,&R3);
-	MakeMATRIKS(8,8,&K);
+	MakeMATRIKS(9,9,&R1);
+	MakeMATRIKS(9,9,&R2);
+	MakeMATRIKS(9,9,&R3);
+	MakeMATRIKS(9,9,&K);
 	
 	printf("Main Menu:\n");
 	printf("1. New Game\n");
@@ -38,7 +36,7 @@ int main(){
 		printf("\n");
 	}
 	//BELOM VALIDASI SAMASEKALI
-	while (menu != 4 || menu != 2){
+	while (menu != 4){
 		if (menu == 1){
 			printf("Masukkan nama pemain : ");
 			lengthNama = 0;
@@ -47,13 +45,14 @@ int main(){
 				lengthNama++;
 				Nama(Pemain, lengthNama) = CC;
 				scanf("%c", &CC );
-				 //loadnya belom
+				 
 			}
+			//loadnya belom
 			NamaLength(Pemain) = lengthNama;
 			Life(Pemain) = 3;
 			Time(Pemain) = 0;
 			Money(Pemain) = 0;
-			PosisiX(Pemain) = 5;
+			PosisiX(Pemain) = 4;
 			PosisiY(Pemain) = 5;	
 
 		} else if (menu == 2){
@@ -62,10 +61,11 @@ int main(){
 		} else if (menu == 3){
 			//LoadRuangan
 			Loadku(&R1, 1, 'R');
+			printf("udah");
 			Loadku(&K, 2, 'K');
-			/*Loadku(&R3, 3, 'R');
+			Loadku(&R3, 3, 'R');
 			Loadku(&K, -1, 'K');
-*/		}
+		}
 		printf("Masukkan pilihan: ");
 		scanf("%d", &menu);
 	}

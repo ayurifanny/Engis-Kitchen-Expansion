@@ -17,12 +17,12 @@
 
 
 typedef struct {
+	Stack H;
 	Kata Nama;
+	POINT Posisi;
 	int Life;
 	int Money;
 	int Time;
-	Stack H;
-	POINT Posisi;
 } Player;
 
 typedef struct {
@@ -31,34 +31,35 @@ typedef struct {
 } Customer;
 
 typedef struct {
+	Kata Order; //belom fix
+	int Number;
 	boolean Meja;
 	boolean VacantT;
-	int Number;
-	Kata Order; //belom fix
+	
 } table;
 
 /*Kalo M[x][y] itu adalah kursi, Kursi : boolean = true*/
 /*Vacant -> kosong apa ngga kursinya*/
 /*Kalo boolean false, vacant false jg*/
 typedef struct {
+	//int No;
 	boolean Kursi;
 	boolean VacantC; 
-	int No;
 } chair;
 
 typedef struct {
-	boolean IsValid;
 	int XObj;
 	int YObj; 
-	int No;
+	boolean IsValid;
 } valid;
 
 /*Kalo M[x][y] itu adalah kompor, Kompor : boolean = true*/
 /*NamaBhn -> Bahan apa yg di ada di situ*/
 /*kalo Kompor false, NamaBhn isi 0*/
 typedef struct {
+	Kata NamaBhn;
 	boolean Kompor;
-	Kata NamaBhn; //belomfix 
+	 //belomfix 
 } stove;
 
 /*Kalo M[x][y] itu adalah tray, Tray : boolean = true*/
@@ -66,27 +67,20 @@ typedef struct {
 /*T -> isi stacknya*/
 /*Kalo Tray == false, stack empty, full false*/
 typedef struct {
-	boolean Nampan;
 	Stack T;
+	boolean Nampan;
 } tray;
-/*Kalo M[x][y] letaknya di tengah2, E = false, yg lain isi false jg*/
-typedef struct {
-	boolean E; //ngasi tau ini edge apa ngga, kalo bukan gosah cek L,R,U,D
-	boolean L;
-	boolean R;
-	boolean U;
-	boolean D;
-} edge;
 
 typedef struct {
-	boolean Avail; //bisa di lewati player apa ngga
-	valid Valid;
-	boolean Door;
+	
 	table Table;
 	chair Chair;
 	stove Stove; 
 	tray Tray;
-	edge Edge;
+	valid Valid;
+	boolean Avail;
+	boolean Door;
+	 //bisa di lewati player apa ngga
 } Status;
 
 
@@ -101,7 +95,6 @@ typedef struct {
 #define MChair(M,i,j) (M).Mem[(i)][(j)].Chair.Kursi
 #define MStove(M,i,j) (M).Mem[(i)][(j)].Stove.Kompor
 #define MTray(M,i,j) (M).Mem[(i)][(j)].Tray.Nampan
-#define MEdge(M,i,j) (M).Mem[(i)][(j)].Edge.E
 
 #define MValid(M,i,j) (M).Mem[(i)][(j)].Valid.IsValid
 #define GetIdxObjX(M,i,j) (M).Mem[(i)][(j)].Valid.XObj
@@ -113,7 +106,6 @@ typedef struct {
 #define MTableOrder(M,i,j,k) (M).Mem[(i)][(j)].Table.Order.TabKata[k]
 
 #define MChairVac(M,i,j) (M).Mem[(i)][(j)].Chair.VacantC
-#define MChairNo(M,i,j) (M).Mem[(i)][(j)].Chair.No
 
 
 #define MNamaBhn(M,i,j,k) (M).Mem[(i)][(j)].Stove.NamaBhn.TabKata[k]
@@ -121,11 +113,6 @@ typedef struct {
 #define MT(M,i,j) (M).Mem[(i)][(j)].Tray.T
 #define MTopT(M,i,j) (M).Mem[(i)][(j)].Tray.T.TOP
 #define MInfoTopT(M,i,j) (M).Mem[(i)][(j)].Tray.T.T[(M).Mem[(i)][(j)].Tray.T.TOP]
-
-#define MEdgeL(M,i,j) (M).Mem[(i)][(j)].Edge.L
-#define MEdgeU(M,i,j) (M).Mem[(i)][(j)].Edge.U
-#define MEdgeR(M,i,j) (M).Mem[(i)][(j)].Edge.R
-#define MEdgeD(M,i,j) (M).Mem[(i)][(j)].Edge.D
 
 
 /*SELEKTOR PLAYER*/
