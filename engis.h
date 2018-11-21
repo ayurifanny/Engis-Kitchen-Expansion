@@ -48,8 +48,7 @@ typedef struct {
 } chair;
 
 typedef struct {
-	int XObj;
-	int YObj; 
+	POINT IdxObj;
 	boolean IsValid;
 } valid;
 
@@ -97,18 +96,18 @@ typedef struct {
 #define MTray(M,i,j) (M).Mem[(i)][(j)].Tray.Nampan
 
 #define MValid(M,i,j) (M).Mem[(i)][(j)].Valid.IsValid
-#define GetIdxObjX(M,i,j) (M).Mem[(i)][(j)].Valid.XObj
-#define GetIdxObjY(M,i,j) (M).Mem[(i)][(j)].Valid.YObj
-
+#define GetIdxObjX(M,i,j) (M).Mem[(i)][(j)].Valid.IdxObj.X
+#define GetIdxObjY(M,i,j) (M).Mem[(i)][(j)].Valid.IdxObj.Y
 
 #define MTableVac(M,i,j) (M).Mem[(i)][(j)].Table.VacantT
 #define MTableNum(M,i,j) (M).Mem[(i)][(j)].Table.Number
 #define MTableOrder(M,i,j,k) (M).Mem[(i)][(j)].Table.Order.TabKata[k]
+#define MTableOrderPjg(M,i,j) (M).Mem[(i)][(j)].Table.Order.Length
 
 #define MChairVac(M,i,j) (M).Mem[(i)][(j)].Chair.VacantC
 
-
 #define MNamaBhn(M,i,j,k) (M).Mem[(i)][(j)].Stove.NamaBhn.TabKata[k]
+#define MNamaBhnPjg(M,i,j) (M).Mem[(i)][(j)].Stove.NamaBhn.Length
 
 #define MT(M,i,j) (M).Mem[(i)][(j)].Tray.T
 #define MTopT(M,i,j) (M).Mem[(i)][(j)].Tray.T.TOP
@@ -129,13 +128,13 @@ typedef struct {
 #define TopH(P) (P).H.TOP
 #define InfoTopH(P) (P).H.T[(P).H.TOP]
 
+
 /*SELEKTOR CUSTOMER*/
 #define Patience(C) (P).Patience
 #define Quant(C) (P).Quantity
 
 
 /*Pake Macros Kuy*/
-
 
 
 #endif

@@ -19,6 +19,7 @@ void STARTR();
           Jika CC != MARK maka EOP akan padam (false)
           Jika CC = MARK maka EOP akan menyala (true) */
 void STARTK();
+void STARTP();
 
 void ADV();
 /* Pita dimajukan satu karakter. 

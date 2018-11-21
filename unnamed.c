@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "engis.h"
 #include "matriks.h"
 #include "mesinkar.h"
 #include "map.h"
+#include "bintree.h"
 
 void TulisCredit();
 
@@ -13,13 +15,16 @@ int main(){
 	/* KAMUS */
 	int menu, lengthNama;
 	Player Pemain;
-	MATRIKS R1, R2, R3, K;
+	MATRIKS K/*, R2, R3, K*/;
+	char *cmd;
+	cmd = malloc(sizeof(char)*1000);
+	BinTree Menu;
 	
 	/* ALGORITMA */
-	MakeMATRIKS(9,9,&R1);
-	MakeMATRIKS(9,9,&R2);
-	MakeMATRIKS(9,9,&R3);
 	MakeMATRIKS(9,9,&K);
+	//MakeMATRIKS(9,9,&R2);
+	/*MakeMATRIKS(9,9,&R3);
+	MakeMATRIKS(9,9,&K);*/
 	
 	printf("Main Menu:\n");
 	printf("1. New Game\n");
@@ -45,26 +50,55 @@ int main(){
 				lengthNama++;
 				Nama(Pemain, lengthNama) = CC;
 				scanf("%c", &CC );
-				 
 			}
+			
 			//loadnya belom
 			NamaLength(Pemain) = lengthNama;
-			Life(Pemain) = 3;
-			Time(Pemain) = 0;
-			Money(Pemain) = 0;
-			PosisiX(Pemain) = 4;
-			PosisiY(Pemain) = 5;	
+			LoadPlayer(&Pemain);
 
 		} else if (menu == 2){
-			PrintGame(&R1, &Pemain);
+			PrintGame(&K, &Pemain);
+			printf("Command : ");
+			scanf("%s", cmd);
+
+			while (strcmp(cmd, "exit") != 0){
+				if (strcmp(cmd, "GU") == 0) {
+					GoUp(&K, &Pemain);
+				}
+				else if (strcmp(cmd, "GD") == 0) {
+					GoDown(&K, &Pemain);
+				}
+				else if (strcmp(cmd, "GL") == 0) {
+					GoLeft(&K, &Pemain);
+				}
+				else if (strcmp(cmd, "GR") == 0) {
+					GoRight(&K, &Pemain);
+				}
+				else if (strcmp(cmd, "tayo") == 0) {
+					PrintStatus(K, Pemain);
+				}
+				else if (strcmp(cmd, "RECIPE") == 0) {
+					PrintTree(Menu, 4);
+				}
+				else {
+					printf("belom ada perintahnya cuy\n");
+				}
+				printf("Command : ");
+				scanf("%s", cmd);
+
+			}
 
 		} else if (menu == 3){
 			//LoadRuangan
-			Loadku(&R1, 1, 'R');
-			printf("udah");
-			Loadku(&K, 2, 'K');
-			Loadku(&R3, 3, 'R');
+			//Loadku(&R1, 1, 'R');
+			//Loadku(&K, 2, 'K');
+			//Loadku(&R3, 3, 'R');
 			Loadku(&K, -1, 'K');
+			
+			//LOAD MENU
+			MakeTree("Piring\0", Nil, Nil, &Menu);
+			LoadMenu(&Menu);
+
 		}
 		printf("Masukkan pilihan: ");
 		scanf("%d", &menu);
@@ -87,3 +121,4 @@ void TulisCredit(){
 	printf("13517140 Fithratulhay Pribadi\n");
 }
 	
+
