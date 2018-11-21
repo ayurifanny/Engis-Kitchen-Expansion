@@ -47,7 +47,8 @@ void Push (Stack *S, infotypeS X)
 /* F.S. X menjadi TOP yang baru,TOP bertambah 1 */
 {
 	Top(*S)++;
-	strcpy(InfoTop(*S), X);
+	strcpy(InfoTop(*S).TabKata, X.TabKata);
+	InfoTop(*S).Length = X.Length;
 }
 
 /* ************ Menghapus sebuah elemen Stack ************ */
@@ -56,7 +57,8 @@ void Pop (Stack *S, infotypeS *X)
 /* I.S. S  tidak mungkin kosong */
 /* F.S. X adalah nilai elemen TOP yang lama, TOP berkurang 1 */
 {
-	strcpy(*X, InfoTop(*S));
+	strcpy((*X).TabKata, InfoTop(*S).TabKata);
+	(*X).Length = InfoTop(*S).Length;
 	Top(*S)--;
 }
 
