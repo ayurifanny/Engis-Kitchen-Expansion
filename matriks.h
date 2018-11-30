@@ -7,6 +7,7 @@
 #include "mesinkata.h"
 #include "engis.h"
 
+
 /* Ukuran minimum dan maksimum baris dan kolom */
 #define BrsMin 1
 #define BrsMax 8
@@ -23,6 +24,7 @@ typedef struct {
 /* NBrsEff <= 1 dan NKolEff <= 1 */
 /* Indeks matriks yang digunakan: [BrsMin..BrsMax][KolMin..KolMax] */
 /* Memori matriks yang dipakai selalu di "ujung kiri atas" */
+
 
 /* ********** DEFINISI PROTOTIPE PRIMITIF ********** */              
 /* *** Konstruktor membentuk MATRIKS *** */
@@ -51,27 +53,7 @@ indeks GetLastIdxKol (MATRIKS M);
 /* Mengirimkan indeks kolom terbesar M */
 boolean IsIdxEff (MATRIKS M, indeks i, indeks j);
 /* Mengirimkan true jika i, j adalah indeks efektif bagi M */
-ElTypeM GetElmtDiagonal (MATRIKS M, indeks i);
-/* Mengirimkan elemen M(i,i) */
 
-void TulisMATRIKS (MATRIKS M); //nanti diubah
-/* I.S. M terdefinisi */
-/* F.S. Nilai M(i,j) ditulis ke layar per baris per kolom, masing-masing elemen per baris 
-   dipisahkan sebuah spasi */
-/* Proses: Menulis nilai setiap elemen M ke layar dengan traversal per baris dan per kolom */
-/* Contoh: menulis matriks 3x3 (ingat di akhir tiap baris, tidak ada spasi)
-1 2 3
-4 5 6
-8 9 10
-*/
-
-/* ********** Operasi lain ********** */
-int NBElmtM (MATRIKS M);
-/* Mengirimkan banyaknya elemen M */
-
-
-
-/* ********** KELOMPOK TEST TERHADAP MATRIKS ********** */
 
 #endif
 

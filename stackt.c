@@ -3,7 +3,7 @@
 /* TOP adalah alamat elemen puncak */
 /* Implementasi dalam bahasa C dengan alokasi statik */
 
-#include <string.h>
+#include <stdio.h>
 #include "boolean.h"
 #include "stackt.h"
 
@@ -46,9 +46,14 @@ void Push (Stack *S, infotypeS X)
 /* I.S. S mungkin kosong, tabel penampung elemen stack TIDAK penuh */
 /* F.S. X menjadi TOP yang baru,TOP bertambah 1 */
 {
+	/* KAMUS */
+	int i;
+	/* ALGORITMA */
 	Top(*S)++;
-	strcpy(InfoTop(*S).TabKata, X.TabKata);
 	InfoTop(*S).Length = X.Length;
+	for (i=1;i<=X.Length;i++){
+		InfoTop(*S).TabKata[i] = X.TabKata[i];
+	}
 }
 
 /* ************ Menghapus sebuah elemen Stack ************ */
@@ -57,9 +62,28 @@ void Pop (Stack *S, infotypeS *X)
 /* I.S. S  tidak mungkin kosong */
 /* F.S. X adalah nilai elemen TOP yang lama, TOP berkurang 1 */
 {
-	strcpy((*X).TabKata, InfoTop(*S).TabKata);
+	/* KAMUS */
+	int i;
+	/* ALGORITMA */
 	(*X).Length = InfoTop(*S).Length;
+	for (i=1;i<=InfoTop(*S).Length;i++){
+		(*X).TabKata[i] = InfoTop(*S).TabKata[i];
+	}
 	Top(*S)--;
 }
 
-
+void PrintStack (Stack S)
+/* Ngeprint pokoknya S harus ada*/
+{
+	/* KAMUS */
+	infotypeS X;
+	int i;
+	/* ALGORITMA */
+	while (!IsEmptyS(S)){
+		Pop(&S, &X);
+		for (i=1;i<=X.Length;i++){
+			printf("%c", X.TabKata[i]);
+		}
+		printf("\n");
+	}
+}

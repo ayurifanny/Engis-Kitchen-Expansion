@@ -6,12 +6,13 @@
 #define queue_H
 
 #include "boolean.h"
+#include "engis.h"
 
 #define Nol 0
 /* Konstanta untuk mendefinisikan address tak terdefinisi */
 
 /* Definisi elemen dan address */
-typedef Kata infotypeQ;
+typedef Customer infotypeQ;
 typedef int addressQ;   /* indeks tabel */
 /* Contoh deklarasi variabel bertype Queue : */
 /* Versi I : tabel dinamik, Head dan Tail eksplisit, ukuran disimpan */
@@ -64,6 +65,6 @@ void Del (Queue * Q, infotypeQ * X);
 /* I.S. Q tidak mungkin kosong */
 /* F.S. X = nilai elemen HEAD pd I.S., HEAD "maju" dengan mekanisme circular buffer; 
         Q mungkin kosong */
-
+void PrintQueue (Queue Q);
 #endif
 

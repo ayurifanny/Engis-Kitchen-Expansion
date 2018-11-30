@@ -5,6 +5,7 @@
 #include "boolean.h"
 #include "queue.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 #define Nol 0
 /* Konstanta untuk mendefinisikan address tak terdefinisi */
@@ -68,6 +69,7 @@ void DeAlokasiQ (Queue * Q)
 /* F.S. Q menjadi tidak terdefinisi lagi, MaxElQ(Q) diset 0 */
 {
 	MaxElQ(*Q) = 0;
+	free((*Q).T);
 }
 
 /* *** Primitif Add/Delete *** */
@@ -76,35 +78,47 @@ void Add (Queue * Q, infotypeQ X)
 /* I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh */
 /* F.S. X menjadi TAIL yang baru, TAIL "maju" dengan mekanisme circular buffer */
 {
-	if (IsEmptyQ(*Q)) {
+	if (IsEmptyQ(*Q)){
 		Head(*Q) = 1;
-		Tail(*Q) = 1;
-		InfoTail(*Q) = X;
 	}
-	else if (Tail(*Q) != MaxElQ(*Q)) {
-		Tail(*Q)++;
-		InfoTail(*Q) = X;
+	if (Tail(*Q) != 30){
+		Tail(*Q) = Tail(*Q) + 1;
+	} else{
+		Tail(*Q) = Tail(*Q) + 1 - 30;
 	}
-	else /* !IsEmptyQ(*Q) && (Tail(*Q) != MaxElQ(*Q)) */ {
-		Tail(*Q) = 1;
-		InfoTail(*Q) = X;
-	}
+	InfoTail(*Q) = X;
 }
 void Del (Queue * Q, infotypeQ * X)
 /* Proses: Menghapus X pada Q dengan aturan FIFO */
 /* I.S. Q tidak mungkin kosong */
 /* F.S. X = Nolai elemen HEAD pd I.S., HEAD "maju" dengan mekanisme circular buffer; 
         Q mungkin kosong */
+
 {
 	*X = InfoHead(*Q);
-	if (NBElmtQ(*Q) == 1) {
+	if (Head(*Q) == Tail(*Q)){
 		Head(*Q) = Nol;
 		Tail(*Q) = Nol;
+	} else{
+		if (Head(*Q) == 30){
+			Head(*Q) = Head(*Q) + 1 - 30;
+		} else{
+			Head(*Q) = Head(*Q) + 1;
+		}
 	}
-	else /* NBElmtQ(*Q) == 1 */
-		Head(*Q)++;
 }
 
-
+void PrintQueue (Queue Q){
+	/* KAMUS */
+	infotypeQ X;
+	/* ALGORITMA */
+    printf("Quantity, Patience\n");
+	while (!IsEmptyQ(Q)){
+		Del(&Q, &X);
+		//if (Quant(X) == 2 || Quant(X) == 4){
+			printf("%d, %d\n", Quant(X), Patience(X));
+		//}
+	}
+}
 
 

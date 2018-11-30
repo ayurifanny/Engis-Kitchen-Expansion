@@ -6,6 +6,7 @@
 #include "engis.h"
 #include <math.h>
 
+
 /* Ukuran minimum dan maksimum baris dan kolom */
 /*#define BrsMin 1
 #define BrsMax 100
@@ -60,43 +61,7 @@ boolean IsIdxEff (MATRIKS M, indeks i, indeks j)
 {
 	return ((i >= BrsMin) && (i <= NBrsEff(M)) && (j >= KolMin) && (j <= NKolEff(M)));
 }
-ElTypeM GetElmtDiagonal (MATRIKS M, indeks i)
- /*Mengirimkan elemen M(i,i) */
-{
-	return ElmtM(M,i,i);
-}
 
-void TulisMATRIKS (MATRIKS M)
-/* I.S. M terdefinisi */
-/* F.S. Nilai M(i,j) ditulis ke layar per baris per kolom, masing-masing elemen per baris 
-   dipisahkan sebuah spasi */
-/* Proses: Menulis nilai setiap elemen M ke layar dengan traversal per baris dan per kolom */
-/* Contoh: menulis matriks 3x3 (ingat di akhir tiap baris, tidak ada spasi)
-1 2 3
-4 5 6
-8 9 10
-*/
-{
-	/* KAMUS LOKAL */
-	indeks i, j;
-	
-	/* ALGORITMA */
-	for (i = BrsMin; i <= GetLastIdxBrs(M); i++) {
-		for (j = KolMin; j < GetLastIdxKol(M); j++) {
-			printf ("%d ",ElmtM(M,i,j));
-		}
-		if (i == GetLastIdxBrs(M))
-			printf ("%d",ElmtM(M,i,GetLastIdxKol(M)));
-		else /* i != GetLastIdxBrs(M) */
-			printf ("%d\n",ElmtM(M,i,GetLastIdxKol(M)));
-	}
-}
 
-/* ********** KELOMPOK OPERASI RELASIONAL TERHADAP MATRIKS ********** */
-/* ********** Operasi lain ********** */
-int NBElmtM (MATRIKS M)
-/* Mengirimkan banyaknya elemen M */
-{
-	return (GetLastIdxBrs(M) * GetLastIdxKol(M));
-}
+
 

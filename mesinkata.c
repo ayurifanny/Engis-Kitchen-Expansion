@@ -85,3 +85,16 @@ if(i>NMax){
   CKata.Length = i-1;
 }
 
+void CopyKata (char *akhir, char *awal){
+  /* KAMUS */
+  int i;
+  
+  /* ALGORITMA */
+  i = 0;
+  
+  while (awal[i] != '\0'){
+      akhir[i] = awal[i]
+      i++;
+    }
+  
+}

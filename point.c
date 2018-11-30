@@ -33,11 +33,11 @@ dari nilai absis dan ordinat tersebut */
 /* F.S. P terdefinisi */
 {
 	/* KAMUS LOKAL */
-	float X;
-	float Y;
+	int X;
+	int Y;
 	
 	/* ALGORITMA */
-	scanf ("%f %f", &X, &Y);
+	scanf ("%d %d", &X, &Y);
 	Absis(*P) = X;
 	Ordinat(*P) = Y;
 }
@@ -46,7 +46,7 @@ void TulisPOINT (POINT P)
 /* I.S. P terdefinisi */
 /* F.S. P tertulis di layer dengan format "(X,Y)" */
 {
-	printf ("(%f,%f)", Absis(P), Ordinat(P));
+	printf ("(%d,%d)", Absis(P), Ordinat(P));
 }
 
 /* *** Kelompok operasi relasional terhadap POINT *** */

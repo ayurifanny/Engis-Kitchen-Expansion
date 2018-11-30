@@ -6,6 +6,7 @@
 #include "boolean.h"
 #include "mesinkata.h"
 #include "mesinkar.h"
+#include "jam.h"
 
 
 
@@ -22,7 +23,7 @@ typedef struct {
 	POINT Posisi;
 	int Life;
 	int Money;
-	int Time;
+	JAM Time;
 } Player;
 
 typedef struct {
@@ -121,8 +122,7 @@ typedef struct {
 #define Life(P) (P).Life
 #define Time(P) (P).Time
 #define Money(P) (P).Money
-#define PosisiX(P) (P).Posisi.X
-#define PosisiY(P) (P).Posisi.Y
+#define Posisi(P) (P).Posisi
 
 #define Hand(P) (P).H
 #define TopH(P) (P).H.TOP
@@ -130,8 +130,8 @@ typedef struct {
 
 
 /*SELEKTOR CUSTOMER*/
-#define Patience(C) (P).Patience
-#define Quant(C) (P).Quantity
+#define Patience(C) (C).Patience
+#define Quant(C) (C).Quantity
 
 
 /*Pake Macros Kuy*/

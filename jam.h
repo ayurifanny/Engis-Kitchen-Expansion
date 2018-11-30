@@ -1,5 +1,4 @@
 /* File: jam.h */
-/* Tanggal: 28 Agustus 2016 */
 /* Definisi ADT JAM */
 
 #ifndef JAM_H
@@ -9,9 +8,9 @@
 
 /* *** Definisi TYPE JAM <HH:MM:SS> *** */
 typedef struct { 
-	int HH; /* integer [0..23] */
-	int MM; /* integer [0..59] */
-	int SS; /* integer [0..59] */
+   int HH; /* integer [0..23] */
+   int MM; /* integer [0..59] */
+   int SS; /* integer [0..59] */
 } JAM;
 
 /* *** Notasi Akses: selektor JAM *** */
@@ -75,26 +74,9 @@ JAM DetikToJAM (long N);
 /* KELOMPOK OPERASI TERHADAP TYPE                                    */
 /* ***************************************************************** */
 /* *** Kelompok Operator Relational *** */
-boolean JEQ (JAM J1, JAM J2);
-/* Mengirimkan true jika J1=J2, false jika tidak */
-boolean JNEQ (JAM J1, JAM J2);
-/* Mengirimkan true jika J1 tidak sama dengan J2 */
-boolean JLT (JAM J1, JAM J2);
-/* Mengirimkan true jika J1<J2, false jika tidak */
-boolean JGT (JAM J1, JAM J2);
-/* Mengirimkan true jika J1>J2, false jika tidak */
+
 /* *** Operator aritmatika JAM *** */
 JAM NextDetik (JAM J);
 /* Mengirim 1 detik setelah J dalam bentuk JAM */
-JAM NextNDetik (JAM J, int N);
-/* Mengirim N detik setelah J dalam bentuk JAM */
-JAM PrevDetik (JAM J);
-/* Mengirim 1 detik sebelum J dalam bentuk JAM */
-JAM PrevNDetik (JAM J, int N);
-/* Mengirim N detik sebelum J dalam bentuk JAM */
-/* *** Kelompok Operator Aritmetika *** */
-long Durasi (JAM JAw, JAM JAkh);
-/* Mengirim JAkh-JAw dlm Detik, dengan kalkulasi */
-/* Jika JAw > JAkh, maka JAkh adalah 1 hari setelah JAw */
 
 #endif

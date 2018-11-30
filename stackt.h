@@ -13,7 +13,7 @@
 /* Nil adalah stack dengan elemen kosong . */
 /* Karena indeks dalam bhs C dimulai 0 maka tabel dg indeks 0 tidak dipakai */
 
-typedef Kata infotypeS[20];
+typedef Kata infotypeS;
 typedef int addressS;   /* indeks tabel */
 
 /* Contoh deklarasi variabel bertype stack dengan ciri TOP : */
@@ -43,7 +43,7 @@ void CreateEmptyS (Stack *S);
 /* ************ Predikat Untuk test keadaan KOLEKSI ************ */
 boolean IsEmptyS (Stack S);
 /* Mengirim true jika Stack kosong: lihat definisi di atas */
-boolean IsFull (Stack S);
+boolean IsFullS (Stack S);
 /* Mengirim true jika tabel penampung nilai elemen stack penuh */
 
 /* ************ Menambahkan sebuah elemen ke Stack ************ */
@@ -58,4 +58,5 @@ void Pop (Stack *S, infotypeS *X);
 /* I.S. S  tidak mungkin kosong */
 /* F.S. X adalah nilai elemen TOP yang lama, TOP berkurang 1 */
 
+void PrintStack (Stack S);
 #endif
