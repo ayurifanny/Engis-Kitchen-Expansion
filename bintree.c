@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include "bintree.h"
+#include "mesinkata.h"
 #include "listrek.h"
+#include "asd.h"
 
 
 /* *** Konstruktor *** */
@@ -14,9 +15,9 @@ BinTree Tree (infotypeT Akar, BinTree L, BinTree R)
 	BinTree T;
 	
 	/* ALGORITMA */
-	T = (BinTree) malloc(sizeof(Node));
+	T = (BinTree) malloc(sizeof(Node)); //strcpy
 	if (T != Nil) {
-		strcpy(Akar(T), Akar);
+		strcop(Akar(T), Akar);
 		Left(T) = L;
 		Right(T) = R;
 	}
@@ -40,7 +41,7 @@ addrNode AlokNode (infotypeT X)
 {
 	addrNode N = (addrNode) malloc(sizeof(Node));
 	if (N != Nil) {
-		strcpy(Akar(N), X);
+		strcop(Akar(N), X); //strcpy
 		Left(N) = Nil;
 		Right(N) = Nil;
 	}
@@ -82,60 +83,6 @@ boolean IsBiner (BinTree P)
 }
 
 /* *** Traversal *** */
-void PrintPreorder (BinTree P)
-/* I.S. P terdefinisi */
-/* F.S. Semua simpul P sudah dicetak secara preorder: akar, pohon kiri, dan pohon kanan.
-   Setiap pohon ditandai dengan tanda kurung buka dan kurung tutup ().
-   Pohon kosong ditandai dengan ().
-   Tidak ada tambahan karakter apa pun di depan, tengah, atau akhir. */
-/* Contoh:
-   (A()()) adalah pohon dengan 1 elemen dengan akar A
-   (A(B()())(C()())) adalah pohon dengan akar A dan subpohon kiri (B()()) dan subpohon kanan (C()()) */
-{
-	printf("(");
-	if (!IsTreeEmpty(P)) {
-		printf("%s", Akar(P));
-		PrintPreorder(Left(P));
-		PrintPreorder(Right(P));
-	}
-	printf(")");
-}
-void PrintInorder (BinTree P)
-/* I.S. P terdefinisi */
-/* F.S. Semua simpul P sudah dicetak secara inorder: pohon kiri, akar, dan pohon kanan.
-   Setiap pohon ditandai dengan tanda kurung buka dan kurung tutup ().
-   Pohon kosong ditandai dengan ().
-   Tidak ada tambahan karakter apa pun di depan, tengah, atau akhir. */
-/* Contoh:
-   (()A()) adalah pohon dengan 1 elemen dengan akar A
-   ((()B())A(()C())) adalah pohon dengan akar A dan subpohon kiri (()B()) dan subpohon kanan (()C()) */
-{
-	printf("(");
-	if (!IsTreeEmpty(P)) {
-		PrintInorder(Left(P));
-		printf("%s", Akar(P));
-		PrintInorder(Right(P));
-	}
-	printf(")");
-}
-void PrintPostorder (BinTree P)
-/* I.S. P terdefinisi */
-/* F.S. Semua simpul P sudah dicetak secara postorder: pohon kiri, pohon kanan, dan akar.
-   Setiap pohon ditandai dengan tanda kurung buka dan kurung tutup ().
-   Pohon kosong ditandai dengan ().
-   Tidak ada tambahan karakter apa pun di depan, tengah, atau akhir. */
-/* Contoh:
-   (()()A) adalah pohon dengan 1 elemen dengan akar A
-   ((()()B)(()()C)A) adalah pohon dengan akar A dan subpohon kiri (()()B) dan subpohon kanan (()()C) */
-{
-	printf("(");
-	if (!IsTreeEmpty(P)) {
-		PrintPostorder(Left(P));
-		PrintPostorder(Right(P));
-		printf("%s", Akar(P));
-	}
-	printf(")");
-}
 void PrintTree (BinTree P, int h)
 /* I.S. P terdefinisi, h adalah jarak indentasi (spasi) */
 /* F.S. Semua simpul P sudah ditulis dengan indentasi (spasi) */
@@ -144,15 +91,16 @@ void PrintTree (BinTree P, int h)
 	if (!IsTreeEmpty(P)) {
 		printf("%s\n", Akar(P));
 		if (!IsTreeEmpty(Left(P))) {
-			printf("%*s", h, " ");
-			PrintTree(Left(P), 2 * h);
+			printf("%*s", h, "----");
+			PrintTree(Left(P), 4+h);
         }
         if (!IsTreeEmpty(Right(P))) {
-			printf("%*s", h, " ");
-			PrintTree(Right(P), 2 * h);
+			printf("%*s", h, "----");
+			PrintTree(Right(P), 4+h);
 		}
 	}
 }
+
 
 /* *** Searching *** */
 boolean SearchTree (BinTree P, infotypeT X)
@@ -270,7 +218,7 @@ void AddDaun (BinTree *P, infotypeT X, infotypeT Y, boolean Kiri)
 /*		Jika ada > 1 daun bernilai X, diambil daun yang paling kiri */
 {
 	if (!IsTreeEmpty(*P)) {
-		if (!strcmp(Akar(*P), X)) {
+		if (!strcom(Akar(*P), X)) {
 			if (Kiri) {
 				Left(*P)= Tree(Y, Nil, Nil);
 			} else {
@@ -280,88 +228,5 @@ void AddDaun (BinTree *P, infotypeT X, infotypeT Y, boolean Kiri)
 			AddDaun(&Left(*P), X, Y, Kiri);
 			AddDaun(&Right(*P), X, Y, Kiri);
 		}
-	}
-}
-void DelDaunTerkiri (BinTree *P, infotypeT *X)
-/* I.S. P tidak kosong */
-/* F.S. P dihapus daun terkirinya, dan didealokasi, dengan X adalah info yang semula
-        disimpan pada daun terkiri yang dihapus */
-{
-	if (IsTreeOneElmt(*P)) {
-		strcpy(*X, Akar(*P));
-		BinTree B = *P;
-		*P = Nil;
-		DealokNode(B);
-	}
-	else /* !IsTreeOneElmt(*P) */ {
-		if (IsUnerLeft(*P))
-			DelDaunTerkiri(&Left(*P), X);
-        else if (IsUnerRight(*P))
-			DelDaunTerkiri(&Right(*P), X);
-		else if (IsBiner(*P))
-			DelDaunTerkiri(&Left(*P), X);
-	}
-}
-void DelDaun (BinTree *P, infotypeT X)
-/* I.S. P tidak kosong, minimum ada 1 daun bernilai X. */
-/* F.S. Semua daun bernilai X dihapus dari P. */
-{
-	if (IsTreeOneElmt(*P)) {
-		if (Akar(*P) == X) {
-			BinTree B = *P;
-			*P = Nil;
-			DealokNode(B);
-		}
-	}
-	else /* !IsTreeOneElmt(*P) */ {
-		if (IsUnerLeft(*P))
-			DelDaun(&Left(*P), X);
-		else if (IsUnerRight(*P))
-			DelDaun(&Right(*P), X);
-		else /* !IsUnerLeft(*P) && !IsUnerRight(*P) */ {
-			DelDaun(&Left(*P), X);
-			DelDaun(&Right(*P), X);
-        }
-	}
-}
-ListR MakeListDaun (BinTree P)
-/* Jika P adalah pohon kosong, maka menghasilkan list kosong. */
-/* Jika P bukan pohon kosong: menghasilkan list yang elemennya adalah semua daun pohon P,
-   jika semua alokasi list berhasil.
-   Daun terkiri menjadi elemen pertama dari list, diikuti elemen kanannya, dst.
-   Menghasilkan list kosong jika ada alokasi yang gagal. */
-{
-	if (IsTreeEmpty(P))
-		return Nil;
-	else if (IsTreeOneElmt(P))
-		return AlokasiT(Akar(P));
-	else /* !IsTreeEmpty(P) && !IsTreeOneElmt(P) */
-		return Concat(MakeListDaun(Left(P)), MakeListDaun(Right(P)));
-}
-ListR MakeListPreorder (BinTree P)
-/* Jika P adalah pohon kosong, maka menghasilkan list kosong. */
-/* Jika P bukan pohon kosong: menghasilkan list yang elemennya adalah semua elemen pohon P
-   dengan urutan preorder, jika semua alokasi berhasil.
-   Menghasilkan list kosong jika ada alokasi yang gagal. */
-{
-	if (IsTreeEmpty(P))
-		return Nil;
-    else /* !IsTreeEmpty(P) */
-		return Konso(Akar(P), Concat(MakeListPreorder(Left(P)), MakeListPreorder(Right(P))));
-}
-ListR MakeListLevel (BinTree P, int N)
-/* Jika P adalah pohon kosong, maka menghasilkan list kosong. */
-/* Jika P bukan pohon kosong: menghasilkan list yang elemennya adalah semua elemen pohon P
-   yang levelnya=N, jika semua alokasi berhasil.
-   Elemen terkiri menjadi elemen pertama dari list, diikuti elemen kanannya, dst.
-   Menghasilkan list kosong jika ada alokasi yang gagal. */
-{
-	if (IsTreeEmpty(P))
-		return Nil;
-	else /* !IsTreEmpty(P) */ {
-		if (N > 1)
-			return Concat(MakeListLevel(Left(P), N - 1), MakeListLevel(Right(P), N - 1));
-		else /* N <= 1 */
-			return AlokasiT(Akar(P));
 	}
 }
